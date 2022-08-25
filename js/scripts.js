@@ -1,3 +1,5 @@
+let carrito = JSON.parse(localStorage.getItem("carrito"));
+
 class ElementoCarrito {
     constructor(producto, cantidad) {
         this.producto = producto;
@@ -26,7 +28,7 @@ function cargarProductos() {
     producto.push(new bicicleta("Venzo skyline", 83000, "./img/mujer1.jpg", 004));
     producto.push(new bicicleta("Venzo loki", 54000, "./img/hombre2.jpeg", 005));
     producto.push(new bicicleta("SLP 5 pro", 54000, "./img/hombre4.jpeg", 005));
-   
+
 
 }
 cargarProductos();
@@ -53,8 +55,15 @@ function dibujarCarrito() {
     contenedorCarritoCompras.innerHTML = renglonesCarrito;
 }
 
-//Carrito
-let carrito = [];
+
+//storage and JSON
+
+if (carrito) {
+    carrito = JSON.parse(localStorage.getItem("carrito"));
+    console.log(carrito);
+} else {
+    carrito = [];
+}
 
 const contenedorCarritoCompras = document.querySelector('#items');
 const contenedorDeProductos = document.getElementsByClassName("row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center");
@@ -100,19 +109,32 @@ function crearCard(producto) {
     //agregar algunos eventos
     botonAgregar.onclick = () => {
 
+        // Agregando SweetAlert
+        Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: 'Producto agregado al carrito exitosamente',
+            showConfirmButton: false,
+            timer: 1500
+        })
+
         let elementoCarrito = new ElementoCarrito(producto, 1);
         console.log(elementoCarrito);
         carrito.push(elementoCarrito);
+
+
         let total = precioFinal();
         let precioTotal = document.getElementById("precioTotal");
         precioTotal.innerHTML = "$" + total;
         console.log(carrito);
         dibujarCarrito();
+        localStorage.setItem("carrito", JSON.stringify(carrito));
     }
 
     return carta;
 
 }
+
 
 function dibujarCatalogoProductos() {
     addProductos.innerHTML = "";
@@ -133,6 +155,6 @@ function precioFinal() {
     let totalPrecios = carrito.reduce(((acumulador, carrito) => acumulador + carrito.producto.precio), 0);
     console.log(totalPrecios);
     return totalPrecios;
-
-
 }
+
+
