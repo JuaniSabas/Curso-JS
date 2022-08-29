@@ -1,4 +1,5 @@
-let carrito = JSON.parse(localStorage.getItem("carrito"));
+//operador ternario
+const carrito = JSON.parse(localStorage.getItem("carrito")) || [];
 
 class ElementoCarrito {
     constructor(producto, cantidad) {
@@ -58,12 +59,12 @@ function dibujarCarrito() {
 
 //storage and JSON
 
-if (carrito) {
+/*if (carrito) {
     carrito = JSON.parse(localStorage.getItem("carrito"));
     console.log(carrito);
 } else {
     carrito = [];
-}
+}*/
 
 const contenedorCarritoCompras = document.querySelector('#items');
 const contenedorDeProductos = document.getElementsByClassName("row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center");
