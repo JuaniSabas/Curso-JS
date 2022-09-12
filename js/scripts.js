@@ -68,6 +68,8 @@ const contenedorCarritoCompras = document.querySelector('#items');
 const contenedorDeProductos = document.getElementsByClassName("row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center");
 
 const addProductos = contenedorDeProductos[0];
+let dolarVenta;
+obtenerValorDolar();
 
 var DOLARVENTA=await obtenerValorDolar();
 console.log(DOLARVENTA);
@@ -88,9 +90,16 @@ function crearCard(producto) {
     cuerpoCarta.innerHTML = `
         <h5>${producto.nombre}</h5>
         <p>$ ${producto.precio}</p>
+<<<<<<< HEAD
         <p>US$ ${DOLARVENTA}</p>
     `;
     
+=======
+        <p>US$ ${dolarVenta}</p>
+    `;
+    console.log(dolarVenta);
+
+>>>>>>> 3144abd855a82a323df63ffd7c44fd7e0a7022a8
     cuerpoCarta.append(footerCard);
     cuerpoCarta.append(botonAgregar);
 
@@ -163,6 +172,7 @@ function precioFinal() {
 }
 
 
+<<<<<<< HEAD
 async function obtenerValorDolar() { 
 
     const URLDOLAR = "https://cors-solucion.herokuapp.com/https://api-dolar-argentina.herokuapp.com/api/dolarblue";
@@ -171,7 +181,33 @@ async function obtenerValorDolar() {
     .then(response => response.json() )
     .then(data => {return data.venta});
     return DOLARVENTA;
+=======
+
+
+//funcion para obtener el valor del dolar blue
+async function obtenerValorDolar() {
+
+    const URLDOLAR = "https://api-dolar-argentina.herokuapp.com/api/dolarblue";
+
+    const resp = await fetch(URLDOLAR)
+    const data = await resp.json()
+    dolarVenta = data.venta;
+    const element = document.createElement('p');
+    element.innerHTML = `
+        Dólar compra: $ ${data.compra}
+        Dólar venta: $ ${data.venta}
+        `;
+    document.body.append(element);
+    console.log(data);
+>>>>>>> 3144abd855a82a323df63ffd7c44fd7e0a7022a8
 }
 
 
 
+<<<<<<< HEAD
+=======
+
+
+
+
+>>>>>>> 3144abd855a82a323df63ffd7c44fd7e0a7022a8
