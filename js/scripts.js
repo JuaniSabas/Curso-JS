@@ -1,3 +1,4 @@
+
 //operador ternario
 const carrito = JSON.parse(localStorage.getItem("carrito")) || [];
 
@@ -23,19 +24,16 @@ class bicicleta {
 const producto = [];
 
 function cargarProductos() {
-    producto.push(new bicicleta("Fire bird turbo", 76000, "./img/hombre1.jpeg", 001));
-    producto.push(new bicicleta("SLP 5 pro", 49000, "./img/slp 5 blanca.jpg", 002));
-    producto.push(new bicicleta("Fire bird lady", 49000, "./img/fire bird lady.jpg", 003));
-    producto.push(new bicicleta("Venzo skyline", 83000, "./img/mujer1.jpg", 004));
-    producto.push(new bicicleta("Venzo loki", 54000, "./img/hombre2.jpeg", 005));
-    producto.push(new bicicleta("SLP 5 pro", 54000, "./img/hombre4.jpeg", 005));
+    producto.push(new bicicleta("Fire bird turbo", 76000, "./img/hombre1.jpeg", 0o1));
+    producto.push(new bicicleta("SLP 5 pro", 49000, "./img/slp 5 blanca.jpg", 0o2));
+    producto.push(new bicicleta("Fire bird lady", 49000, "./img/fire bird lady.jpg", 0o3));
+    producto.push(new bicicleta("Venzo skyline", 83000, "./img/mujer1.jpg", 0o4));
+    producto.push(new bicicleta("Venzo loki", 54000, "./img/hombre2.jpeg", 0o5));
+    producto.push(new bicicleta("SLP 5 pro", 54000, "./img/hombre4.jpeg", 0o5));
 
 
 }
 cargarProductos();
-
-
-
 //funcion de dibujo de carrito
 function dibujarCarrito() {
     let renglonesCarrito = '';
@@ -71,6 +69,9 @@ const contenedorDeProductos = document.getElementsByClassName("row gx-4 gx-lg-5 
 
 const addProductos = contenedorDeProductos[0];
 
+var DOLARVENTA=await obtenerValorDolar();
+console.log(DOLARVENTA);
+
 function crearCard(producto) {
     //footer card
     let footerCard = document.createElement("div");
@@ -87,7 +88,9 @@ function crearCard(producto) {
     cuerpoCarta.innerHTML = `
         <h5>${producto.nombre}</h5>
         <p>$ ${producto.precio}</p>
+        <p>US$ ${DOLARVENTA}</p>
     `;
+    
     cuerpoCarta.append(footerCard);
     cuerpoCarta.append(botonAgregar);
 
@@ -106,6 +109,7 @@ function crearCard(producto) {
     let colum = document.createElement('div');
     colum.className = "col mb-5";
     colum.append(carta);
+
 
     //agregar algunos eventos
     botonAgregar.onclick = () => {
@@ -131,7 +135,7 @@ function crearCard(producto) {
         dibujarCarrito();
         localStorage.setItem("carrito", JSON.stringify(carrito));
     }
-
+    
     return carta;
 
 }
@@ -157,5 +161,17 @@ function precioFinal() {
     console.log(totalPrecios);
     return totalPrecios;
 }
+
+
+async function obtenerValorDolar() { 
+
+    const URLDOLAR = "https://cors-solucion.herokuapp.com/https://api-dolar-argentina.herokuapp.com/api/dolarblue";
+    
+    DOLARVENTA = await fetch(URLDOLAR)
+    .then(response => response.json() )
+    .then(data => {return data.venta});
+    return DOLARVENTA;
+}
+
 
 
