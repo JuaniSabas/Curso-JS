@@ -85,9 +85,14 @@ function dibujarCarrito() {
 
 }
 
+
+
+
 const contenedorCarritoCompras = document.querySelector('#items');
 const contenedorDeProductos = document.getElementsByClassName("row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center");
+
 const addProductos = contenedorDeProductos[0];
+
 
 var DOLARVENTA = await obtenerValorDolar();
 
@@ -208,5 +213,5 @@ function vaciarCarrito() {
 }
 
 // Evento vaciar carrito
-DOMbotonVaciar.addEventListener("click", vaciarCarrito);
+DOMbotonVaciar.addEventListener('click', vaciarCarrito);
 
